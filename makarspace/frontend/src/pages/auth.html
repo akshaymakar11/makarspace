@@ -7,7 +7,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/styles/main.css">
+    <style>
+        /* Fallback styles in case external CSS fails to load */
+        :root {
+          --primary: #0b3d91;  /* NASA blue */
+          --primary-light: #1e5cb3;
+          --primary-dark: #051f49;
+          --accent: #fc3d21;   /* NASA red */
+          --accent-light: #ff6347;
+          --space-black: #121212;
+          --deep-space: #000000;
+          --cosmic-purple: #2e1a47;
+          --nebula-blue: #1a2a47;
+          --stellar-teal: #1a4747;
+          --space-gray: #2d2d2d;
+          --space-light-gray: #4a4a4a;
+          --space-silver: #e0e0e0;
+          --space-white: #f8f8f8;
+        }
+        body {
+            background-color: var(--deep-space);
+            color: var(--space-white);
+            font-family: 'Exo 2', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 10;
+        }
+        .auth-card {
+            background: rgba(18, 18, 35, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="../assets/js/auth.js"></script>
 </head>
 <body>
     <div class="particles-container" id="particles-js"></div>
@@ -36,62 +83,85 @@
                 <p>AI-Driven Anomaly Detection for Spacecraft</p>
             </div>
 
-            <div class="auth-tabs" id="authTabs">
-                <div class="auth-tab active" data-tab="login">Login</div>
-                <div class="auth-tab" data-tab="register">Register</div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="register">Register</button>
             </div>
 
             <div class="auth-forms">
                 <!-- Login Form -->
-                <form id="loginForm" class="slide-up">
+                <form action="#" class="auth-form active" id="login-form">
                     <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                        <label for="login-email">Email</label>
+                        <div class="input-with-icon">
+                            <input type="email" id="login-email" name="email" value="demo@makarspace.com" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                        <label for="login-password">Password</label>
+                        <div class="input-with-icon">
+                            <input type="password" id="login-password" name="password" value="makarspace2025" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn" style="width: 100%;">
-                            Login to Mission Control
-                            <i class="fas fa-rocket ml-2"></i>
-                        </button>
+                    <div class="form-actions">
+                        <div class="remember-forgot">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me" checked>
+                                <span class="checkmark"></span>
+                                Remember Me
+                            </label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary login-btn">Log In</button>
                     </div>
-                    <div class="form-group text-center">
-                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    <div class="demo-credentials-info" style="text-align: center; margin-top: 1rem; padding: 0.5rem; background: rgba(30, 92, 179, 0.2); border-radius: 4px; font-size: 0.9rem;">
+                        <p style="margin: 0; color: var(--space-silver);"><strong>Demo Credentials (Pre-filled):</strong><br>
+                        Email: demo@makarspace.com<br>
+                        Password: makarspace2025</p>
                     </div>
                 </form>
 
                 <!-- Register Form -->
-                <form id="registerForm" class="slide-up" style="display: none;">
+                <form action="#" class="auth-form" id="register-form">
                     <div class="form-group">
-                        <label for="registerName">Full Name</label>
-                        <input type="text" id="registerName" class="form-control" placeholder="Enter your full name" required>
+                        <label for="register-name">Full Name</label>
+                        <div class="input-with-icon">
+                            <input type="text" id="register-name" name="name" placeholder="Enter your full name" required>
+                            <i class="fas fa-user-astronaut"></i>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email" required>
+                        <label for="register-email">Email</label>
+                        <div class="input-with-icon">
+                            <input type="email" id="register-email" name="email" placeholder="Enter your email" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="registerPassword">Password</label>
-                        <input type="password" id="registerPassword" class="form-control" placeholder="Create a password" required>
+                        <label for="register-password">Password</label>
+                        <div class="input-with-icon">
+                            <input type="password" id="register-password" name="password" placeholder="Enter your password" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="registerConfirmPassword">Confirm Password</label>
-                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <div class="input-with-icon">
+                            <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn" style="width: 100%;">
-                            Create Account
-                            <i class="fas fa-user-astronaut ml-2"></i>
-                        </button>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                    <div class="note-info" style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">
+                        <p style="margin: 0; color: var(--space-silver);">Note: For demo purposes, registration will redirect to the login page with demo credentials.</p>
                     </div>
                 </form>
             </div>
 
             <div class="auth-footer">
-                <p>© 2025 MakarSpace | Open-Source Spacecraft AI</p>
+                <p>&copy; 2025 MakarSpace | Open-Source Spacecraft AI</p>
             </div>
         </div>
     </div>
