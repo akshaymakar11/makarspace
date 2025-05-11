@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakarSpace - Spacecraft Anomaly Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div class="particles-container" id="particles-js"></div>
+    
+    <div class="auth-container">
+        <!-- Floating orbs background effect -->
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <svg width="80" height="80" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="95" stroke="#1E5CB3" stroke-width="2" />
+                        <circle cx="100" cy="100" r="70" stroke="#1E5CB3" stroke-width="2" />
+                        <circle cx="100" cy="100" r="40" fill="#0B3D91" stroke="#1E5CB3" stroke-width="2" />
+                        <path d="M100 20C55.8172 20 20 55.8172 20 100C20 144.183 55.8172 180 100 180" stroke="#FC3D21" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 8" />
+                        <circle cx="100" cy="20" r="8" fill="#FC3D21" />
+                        <circle cx="170" cy="110" r="5" fill="#FC3D21" />
+                        <circle cx="30" cy="140" r="5" fill="#1E5CB3" />
+                        <circle cx="150" cy="50" r="5" fill="#1E5CB3" />
+                    </svg>
+                </div>
+                <h1>MakarSpace</h1>
+                <p>AI-Driven Anomaly Detection for Spacecraft</p>
+            </div>
+
+            <div class="auth-tabs" id="authTabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="register">Register</div>
+            </div>
+
+            <div class="auth-forms">
+                <!-- Login Form -->
+                <form id="loginForm" class="slide-up">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn" style="width: 100%;">
+                            Login to Mission Control
+                            <i class="fas fa-rocket ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="form-group text-center">
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="slide-up" style="display: none;">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn" style="width: 100%;">
+                            Create Account
+                            <i class="fas fa-user-astronaut ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="auth-footer">
+                <p>© 2025 MakarSpace | Open-Source Spacecraft AI</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Particles.js for space background
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 100,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": ["#ffffff", "#1E5CB3", "#FC3D21"]
+                    },
+                    "shape": {
+                        "type": "circle"
+                    },
+                    "opacity": {
+                        "value": 0.8,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 2,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 2,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#1E5CB3",
+                        "opacity": 0.2,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 0.5,
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 0.5
+                            }
+                        },
+                        "push": {
+                            "particles_nb": 3
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = {
+                login: document.getElementById('loginForm'),
+                register: document.getElementById('registerForm')
+            };
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Deactivate all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Activate clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding form
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    if (tabName === 'login') {
+                        forms.login.style.display = 'block';
+                        forms.register.style.display = 'none';
+                    } else {
+                        forms.login.style.display = 'none';
+                        forms.register.style.display = 'block';
+                    }
+                });
+            });
+
+            // Form submission
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // In a real app, we would authenticate the user here
+                // For demo purposes, redirect to dashboard
+                window.location.href = 'dashboard.html';
+            });
+
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // In a real app, we would register the user here
+                // For demo purposes, redirect to dashboard
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>

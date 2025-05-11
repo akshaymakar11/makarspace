@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakarSpace - Mission Control Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <link rel="stylesheet" href="../assets/styles/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <svg width="40" height="40" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="95" stroke="#1E5CB3" stroke-width="2" />
+                    <circle cx="100" cy="100" r="70" stroke="#1E5CB3" stroke-width="2" />
+                    <circle cx="100" cy="100" r="40" fill="#0B3D91" stroke="#1E5CB3" stroke-width="2" />
+                    <path d="M100 20C55.8172 20 20 55.8172 20 100C20 144.183 55.8172 180 100 180" stroke="#FC3D21" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 8" />
+                    <circle cx="100" cy="20" r="8" fill="#FC3D21" />
+                    <circle cx="170" cy="110" r="5" fill="#FC3D21" />
+                    <circle cx="30" cy="140" r="5" fill="#1E5CB3" />
+                    <circle cx="150" cy="50" r="5" fill="#1E5CB3" />
+                </svg>
+                <h1>MakarSpace</h1>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link active" data-page="overview">
+                            <i class="fas fa-home"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-page="anomaly-detection">
+                            <i class="fas fa-radar"></i>
+                            <span>Anomaly Detection</span>
+                            <span class="badge badge-new">Live</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-page="predictive-maintenance">
+                            <i class="fas fa-tools"></i>
+                            <span>Predictive Maintenance</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-page="explainability">
+                            <i class="fas fa-brain"></i>
+                            <span>Explainability Engine</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-page="architecture">
+                            <i class="fas fa-cubes"></i>
+                            <span>Modular Architecture</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-page="simulation">
+                            <i class="fas fa-satellite"></i>
+                            <span>Simulation Tools</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-page="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    <div class="user-details">
+                        <h4>Mission Control</h4>
+                        <p>Admin</p>
+                    </div>
+                </div>
+                <a href="auth.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="particles-container" id="particles-js"></div>
+
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="breadcrumb">
+                    <span id="current-section">Overview</span>
+                </div>
+                <div class="topbar-actions">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search..." class="search-input">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="help-btn">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content Pages -->
+            <div class="dashboard-pages">
+                <!-- Overview Page -->
+                <section id="overview" class="dashboard-page active">
+                    <div class="page-header">
+                        <h2 class="page-title">Mission Control Overview</h2>
+                        <p class="page-subtitle">Real-time spacecraft anomaly detection and monitoring</p>
+                    </div>
+
+                    <!-- Mission Status Card -->
+                    <div class="mission-status-card">
+                        <div class="status-info">
+                            <h3>Spacecraft Status</h3>
+                            <div class="status-indicator">
+                                <div class="status-badge">
+                                    <span class="status-icon status-normal"></span>
+                                    <span>Nominal</span>
+                                </div>
+                                <div class="status-time">Last updated: 2 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="mission-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">98.7%</span>
+                                <span class="stat-label">System Integrity</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">186</span>
+                                <span class="stat-label">Days in Orbit</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">2</span>
+                                <span class="stat-label">Active Alerts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Performance Metrics -->
+                    <div class="metrics-section">
+                        <h3 class="section-title">Key Performance Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h4>Anomaly Detection</h4>
+                                    <div class="metric-icon">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                </div>
+                                <div class="metric-value">99.4%</div>
+                                <div class="metric-subtitle">Detection Accuracy</div>
+                                <div class="metric-chart">
+                                    <canvas id="anomalyChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h4>Predictive Maintenance</h4>
+                                    <div class="metric-icon">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                </div>
+                                <div class="metric-value">97.8%</div>
+                                <div class="metric-subtitle">Prediction Accuracy</div>
+                                <div class="metric-chart">
+                                    <canvas id="maintenanceChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h4>Model Latency</h4>
+                                    <div class="metric-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                </div>
+                                <div class="metric-value">23ms</div>
+                                <div class="metric-subtitle">Average Response Time</div>
+                                <div class="metric-chart">
+                                    <canvas id="latencyChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-header">
+                                    <h4>Explanations</h4>
+                                    <div class="metric-icon">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                </div>
+                                <div class="metric-value">94.1%</div>
+                                <div class="metric-subtitle">Clarity Score</div>
+                                <div class="metric-chart">
+                                    <canvas id="explainabilityChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Anomalies -->
+                    <div class="recent-anomalies-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Recent Anomalies</h3>
+                            <button class="view-all-btn">View All</button>
+                        </div>
+                        <div class="anomalies-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Type</th>
+                                        <th>Component</th>
+                                        <th>Severity</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2025-05-12 01:02:45</td>
+                                        <td>Radiation Spike</td>
+                                        <td>Solar Panel Array</td>
+                                        <td>
+                                            <span class="severity-badge high">High</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge resolved">Resolved</span>
+                                        </td>
+                                        <td>
+                                            <button class="action-btn view-btn">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="action-btn report-btn">
+                                                <i class="fas fa-file-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-11 22:18:33</td>
+                                        <td>Temperature Anomaly</td>
+                                        <td>Propulsion System</td>
+                                        <td>
+                                            <span class="severity-badge medium">Medium</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge active">Active</span>
+                                        </td>
+                                        <td>
+                                            <button class="action-btn view-btn">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="action-btn report-btn">
+                                                <i class="fas fa-file-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-10 14:55:12</td>
+                                        <td>Voltage Fluctuation</td>
+                                        <td>Power Distribution</td>
+                                        <td>
+                                            <span class="severity-badge low">Low</span>
+                                        </td>
+                                        <td>
+                                            <span class="status-badge resolved">Resolved</span>
+                                        </td>
+                                        <td>
+                                            <button class="action-btn view-btn">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="action-btn report-btn">
+                                                <i class="fas fa-file-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- System Health Monitoring -->
+                    <div class="system-health-section">
+                        <h3 class="section-title">System Health Monitoring</h3>
+                        <div class="system-health-grid">
+                            <div class="health-card">
+                                <div class="health-header">
+                                    <div class="health-title">Power System</div>
+                                    <div class="health-status">
+                                        <span class="status-icon status-normal"></span>
+                                        <span>Nominal</span>
+                                    </div>
+                                </div>
+                                <div class="health-stats">
+                                    <div class="health-stat">
+                                        <div class="stat-label">Current Draw</div>
+                                        <div class="stat-value">18.2A</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">Voltage</div>
+                                        <div class="stat-value">28.1V</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">Temperature</div>
+                                        <div class="stat-value">22.4°C</div>
+                                    </div>
+                                </div>
+                                <div class="health-chart">
+                                    <canvas id="powerSystemChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="health-card">
+                                <div class="health-header">
+                                    <div class="health-title">Propulsion</div>
+                                    <div class="health-status">
+                                        <span class="status-icon status-warning"></span>
+                                        <span>Check Required</span>
+                                    </div>
+                                </div>
+                                <div class="health-stats">
+                                    <div class="health-stat">
+                                        <div class="stat-label">Thrust</div>
+                                        <div class="stat-value">5.2N</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">Pressure</div>
+                                        <div class="stat-value">1.8MPa</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">Temperature</div>
+                                        <div class="stat-value">112.8°C</div>
+                                    </div>
+                                </div>
+                                <div class="health-chart">
+                                    <canvas id="propulsionChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="health-card">
+                                <div class="health-header">
+                                    <div class="health-title">Communications</div>
+                                    <div class="health-status">
+                                        <span class="status-icon status-normal"></span>
+                                        <span>Nominal</span>
+                                    </div>
+                                </div>
+                                <div class="health-stats">
+                                    <div class="health-stat">
+                                        <div class="stat-label">Signal Strength</div>
+                                        <div class="stat-value">-72dBm</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">Bit Error Rate</div>
+                                        <div class="stat-value">1.2e-6</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">Bandwidth</div>
+                                        <div class="stat-value">256Kbps</div>
+                                    </div>
+                                </div>
+                                <div class="health-chart">
+                                    <canvas id="commsChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="health-card">
+                                <div class="health-header">
+                                    <div class="health-title">Thermal Control</div>
+                                    <div class="health-status">
+                                        <span class="status-icon status-normal"></span>
+                                        <span>Nominal</span>
+                                    </div>
+                                </div>
+                                <div class="health-stats">
+                                    <div class="health-stat">
+                                        <div class="stat-label">Internal</div>
+                                        <div class="stat-value">21.5°C</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">External</div>
+                                        <div class="stat-value">-45.7°C</div>
+                                    </div>
+                                    <div class="health-stat">
+                                        <div class="stat-label">Radiator</div>
+                                        <div class="stat-value">5.2°C</div>
+                                    </div>
+                                </div>
+                                <div class="health-chart">
+                                    <canvas id="thermalChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Anomaly Detection Page -->
+                <section id="anomaly-detection" class="dashboard-page">
+                    <div class="page-header">
+                        <h2 class="page-title">Real-Time Anomaly Detection</h2>
+                        <p class="page-subtitle">Advanced algorithms to identify and classify spacecraft anomalies</p>
+                    </div>
+                    
+                    <!-- 3D Spacecraft Visualization -->
+                    <div class="spacecraft-container">
+                        <div id="spacecraft-visualization"></div>
+                        <div class="visualization-controls">
+                            <button class="control-btn"><i class="fas fa-plus"></i></button>
+                            <button class="control-btn"><i class="fas fa-minus"></i></button>
+                            <button class="control-btn"><i class="fas fa-sync"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Anomaly Detection Features -->
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                                <h3 class="feature-title">Sensor Fusion</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Combines data from multiple sensors to improve detection accuracy and reduce false positives. Integrates telemetry from navigation, power, thermal, and communication systems.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Configure</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-sliders"></i>
+                                </div>
+                                <h3 class="feature-title">Dynamic Thresholds</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Automatically adjusts detection thresholds based on operating conditions, mission phase, and historical data patterns. Adapts to changing spacecraft behavior.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Adjust</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <h3 class="feature-title">Edge Inference</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Low-latency anomaly detection performed directly on the spacecraft systems, enabling immediate response to critical issues without waiting for ground communication.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Status</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3 class="feature-title">Pattern Recognition</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Advanced algorithms that identify complex patterns and correlations in spacecraft telemetry data, detecting subtle anomalies that traditional methods would miss.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Train</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Anomaly Statistics Table -->
+                    <div class="recent-anomalies-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Anomaly Statistics</h3>
+                            <button class="view-all-btn">Export Data</button>
+                        </div>
+                        <div class="anomalies-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Detection Method</th>
+                                        <th>True Positives</th>
+                                        <th>False Positives</th>
+                                        <th>Precision</th>
+                                        <th>Recall</th>
+                                        <th>F1 Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LSTM-Autoencoder</td>
+                                        <td>127</td>
+                                        <td>3</td>
+                                        <td>97.7%</td>
+                                        <td>99.2%</td>
+                                        <td>98.4%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Transformer</td>
+                                        <td>132</td>
+                                        <td>1</td>
+                                        <td>99.2%</td>
+                                        <td>98.5%</td>
+                                        <td>98.9%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Isolation Forest</td>
+                                        <td>119</td>
+                                        <td>7</td>
+                                        <td>94.4%</td>
+                                        <td>97.5%</td>
+                                        <td>96.0%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ensemble Method</td>
+                                        <td>135</td>
+                                        <td>2</td>
+                                        <td>98.5%</td>
+                                        <td>99.3%</td>
+                                        <td>98.9%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Predictive Maintenance Page -->
+                <section id="predictive-maintenance" class="dashboard-page">
+                    <div class="page-header">
+                        <h2 class="page-title">Predictive Maintenance</h2>
+                        <p class="page-subtitle">Proactive component failure prediction and remaining useful life estimation</p>
+                    </div>
+                    
+                    <!-- Component Health Overview -->
+                    <div class="mission-status-card">
+                        <div class="status-info">
+                            <h3>Critical Components Health</h3>
+                            <div class="status-indicator">
+                                <div class="status-badge">
+                                    <span class="status-icon status-warning"></span>
+                                    <span>Monitoring</span>
+                                </div>
+                                <div class="status-time">Last updated: 5 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="mission-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">94.2%</span>
+                                <span class="stat-label">Average RUL</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">3</span>
+                                <span class="stat-label">Watch List</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">127</span>
+                                <span class="stat-label">Days to Service</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Predictive Maintenance Features -->
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-radiation"></i>
+                                </div>
+                                <h3 class="feature-title">Radiation-Hardened Prediction</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Specialized models for predicting failures in radiation-hardened components. Accounts for cumulative radiation exposure and degradation patterns in space environments.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Monitor</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                                <h3 class="feature-title">Remaining Useful Life</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Estimates the remaining operational time for critical systems and components. Considers usage patterns, environmental stressors, and historical performance data.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Calculate</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <h3 class="feature-title">Maintenance Scheduling</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Optimizes maintenance schedules based on predicted component failures, mission constraints, and available resources. Minimizes downtime while maximizing safety.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Schedule</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <h3 class="feature-title">Fault Propagation Analysis</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Simulates how potential failures might cascade through spacecraft systems. Identifies critical dependencies and single points of failure to prioritize maintenance.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Analyze</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Component Health Table -->
+                    <div class="recent-anomalies-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Component Health Status</h3>
+                            <button class="view-all-btn">Generate Report</button>
+                        </div>
+                        <div class="anomalies-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Component</th>
+                                        <th>Subsystem</th>
+                                        <th>Health Score</th>
+                                        <th>Remaining Life</th>
+                                        <th>Last Maintenance</th>
+                                        <th>Priority</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Primary Power Converter</td>
+                                        <td>Electrical</td>
+                                        <td>92.5%</td>
+                                        <td>482 days</td>
+                                        <td>103 days ago</td>
+                                        <td><span class="severity-badge low">Low</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-bell"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Attitude Control Gyroscope</td>
+                                        <td>Navigation</td>
+                                        <td>87.3%</td>
+                                        <td>307 days</td>
+                                        <td>89 days ago</td>
+                                        <td><span class="severity-badge medium">Medium</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-bell"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Propellant Valve Assembly</td>
+                                        <td>Propulsion</td>
+                                        <td>76.1%</td>
+                                        <td>127 days</td>
+                                        <td>215 days ago</td>
+                                        <td><span class="severity-badge high">High</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-bell"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Solar Array Drive Motor</td>
+                                        <td>Power</td>
+                                        <td>90.8%</td>
+                                        <td>412 days</td>
+                                        <td>56 days ago</td>
+                                        <td><span class="severity-badge low">Low</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-bell"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Predictive Maintenance Chart -->
+                    <div class="metrics-section">
+                        <h3 class="section-title">System Degradation Forecast</h3>
+                        <div class="anomalies-table-container" style="padding: 1.5rem;">
+                            <canvas id="degradationChart" style="height: 300px;"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Explainability Engine Page -->
+                <section id="explainability" class="dashboard-page">
+                    <div class="page-header">
+                        <h2 class="page-title">Explainability Engine</h2>
+                        <p class="page-subtitle">Interpretable AI insights into anomaly detection decisions</p>
+                    </div>
+                    
+                    <!-- Active Explanation Overview -->
+                    <div class="mission-status-card">
+                        <div class="status-info">
+                            <h3>Active AI Explanations</h3>
+                            <div class="status-indicator">
+                                <div class="status-badge">
+                                    <span class="status-icon status-normal"></span>
+                                    <span>Generating Reports</span>
+                                </div>
+                                <div class="status-time">Last explanation: 12 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="mission-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">97.8%</span>
+                                <span class="stat-label">Clarity Score</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">23</span>
+                                <span class="stat-label">Explanations Today</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">3.2s</span>
+                                <span class="stat-label">Avg. Generation Time</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Explanation Features -->
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <h3 class="feature-title">SHAP Visualizations</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">SHapley Additive exPlanations (SHAP) provide a unified measure of feature importance, showing how each sensor value contributes to anomaly detection decisions.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Generate</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-align-left"></i>
+                                </div>
+                                <h3 class="feature-title">Natural Language Reports</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Automatically generates human-readable explanations of anomaly detections in plain language. Summarizes key findings and recommended actions for mission controllers.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">View Reports</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-map"></i>
+                                </div>
+                                <h3 class="feature-title">Counterfactual Analysis</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Explore "what-if" scenarios to understand what changes in sensor readings would have prevented or caused an anomaly. Helps identify critical thresholds and decision boundaries.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Analyze</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-history"></i>
+                                </div>
+                                <h3 class="feature-title">Temporal Importance</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Visualizes how the importance of different sensors and features evolves over time, showing which inputs become more critical before, during, and after anomalous events.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">View Timeline</button>
+                                    <button class="btn btn-secondary">Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature Importance Visualization -->
+                    <div class="metrics-section">
+                        <h3 class="section-title">Feature Importance Visualization</h3>
+                        <div class="feature-importance-container anomalies-table-container" style="padding: 1.5rem;">
+                            <div class="feature-importance-chart">
+                                <img src="../assets/images/shap_waterfall.png" alt="SHAP Waterfall Chart" style="width: 100%; max-height: 350px; object-fit: contain;">
+                            </div>
+                            <div class="feature-importance-legend" style="margin-top: 1rem;">
+                                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="width: 12px; height: 12px; display: inline-block; background: #1E5CB3;"></span>
+                                        <span>Positive Impact</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="width: 12px; height: 12px; display: inline-block; background: #FC3D21;"></span>
+                                        <span>Negative Impact</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="width: 12px; height: 12px; display: inline-block; background: #4CAF50;"></span>
+                                        <span>Expected Range</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Explanation History -->
+                    <div class="recent-anomalies-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Recent Explanations</h3>
+                            <button class="view-all-btn">View Archive</button>
+                        </div>
+                        <div class="anomalies-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Anomaly Type</th>
+                                        <th>Critical Features</th>
+                                        <th>Confidence</th>
+                                        <th>Explanation Quality</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2023-06-12 14:23:05</td>
+                                        <td>Thermal Control</td>
+                                        <td>Temp Sensor 3, Radiator Flow</td>
+                                        <td>98.7%</td>
+                                        <td><span class="severity-badge low">High</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-download"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-06-12 08:17:42</td>
+                                        <td>Power Fluctuation</td>
+                                        <td>Battery Voltage, Solar Panel Current</td>
+                                        <td>96.2%</td>
+                                        <td><span class="severity-badge low">High</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-download"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-06-11 22:45:18</td>
+                                        <td>Communication Dropout</td>
+                                        <td>Signal Strength, Error Rate</td>
+                                        <td>92.5%</td>
+                                        <td><span class="severity-badge medium">Medium</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-download"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-06-11 15:31:09</td>
+                                        <td>Attitude Control</td>
+                                        <td>Gyroscope X, Reaction Wheel 2</td>
+                                        <td>97.8%</td>
+                                        <td><span class="severity-badge low">High</span></td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-download"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Modular Architecture Page -->
+                <section id="architecture" class="dashboard-page">
+                    <div class="page-header">
+                        <h2 class="page-title">Modular Architecture</h2>
+                        <p class="page-subtitle">Flexible plugin system for custom sensors and analytics</p>
+                    </div>
+                    
+                    <!-- Architecture Overview -->
+                    <div class="mission-status-card">
+                        <div class="status-info">
+                            <h3>System Architecture Status</h3>
+                            <div class="status-indicator">
+                                <div class="status-badge">
+                                    <span class="status-icon status-normal"></span>
+                                    <span>Operational</span>
+                                </div>
+                                <div class="status-time">Last updated: 3 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="mission-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">17</span>
+                                <span class="stat-label">Active Modules</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">6</span>
+                                <span class="stat-label">Custom Plugins</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">99.8%</span>
+                                <span class="stat-label">System Uptime</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Architecture Diagram -->
+                    <div class="metrics-section">
+                        <h3 class="section-title">System Architecture Diagram</h3>
+                        <div class="anomalies-table-container" style="padding: 1.5rem; text-align: center;">
+                            <div class="architecture-diagram">
+                                <!-- This would be an interactive diagram in the real application -->
+                                <div style="background: rgba(30, 30, 40, 0.5); padding: 2rem; border-radius: 10px; border: 1px dashed rgba(255, 255, 255, 0.2);">
+                                    <div style="font-style: italic; color: var(--space-silver);">Interactive Architecture Diagram</div>
+                                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--space-silver);">Click on any module to see details and connections</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Module Features -->
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-plug"></i>
+                                </div>
+                                <h3 class="feature-title">Plugin System</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Extensible architecture that allows integration of custom sensor modules, processing algorithms, and visualization components without modifying the core system.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Manage Plugins</button>
+                                    <button class="btn btn-secondary">Documentation</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <h3 class="feature-title">API Integration</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">RESTful API for seamless integration with external systems and services. Secure endpoints for data ingestion, retrieval, and command execution with comprehensive documentation.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">API Explorer</button>
+                                    <button class="btn btn-secondary">Documentation</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3 class="feature-title">Security Framework</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Role-based access control, end-to-end encryption, and secure communication channels. Validates and sandboxes third-party modules to ensure system integrity and data protection.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Security Settings</button>
+                                    <button class="btn btn-secondary">Audit Log</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-code-branch"></i>
+                                </div>
+                                <h3 class="feature-title">Version Control</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Manages module and plugin versions with automatic dependency resolution. Supports rolling back to previous configurations and A/B testing of new components.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Version History</button>
+                                    <button class="btn btn-secondary">Rollback</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Module Status -->
+                    <div class="recent-anomalies-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Module Status</h3>
+                            <button class="view-all-btn">Refresh</button>
+                        </div>
+                        <div class="anomalies-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Module Name</th>
+                                        <th>Type</th>
+                                        <th>Version</th>
+                                        <th>Status</th>
+                                        <th>Resource Usage</th>
+                                        <th>Last Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Core Engine</td>
+                                        <td>System</td>
+                                        <td>2.3.1</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td>12.3%</td>
+                                        <td>1 day ago</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-cog"></i></button>
+                                            <button class="action-btn"><i class="fas fa-info-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LSTM Detector</td>
+                                        <td>Model</td>
+                                        <td>1.4.2</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td>18.7%</td>
+                                        <td>3 days ago</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-cog"></i></button>
+                                            <button class="action-btn"><i class="fas fa-info-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Radiation Sensor Interface</td>
+                                        <td>Plugin</td>
+                                        <td>1.1.0</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                        <td>5.2%</td>
+                                        <td>12 days ago</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-cog"></i></button>
+                                            <button class="action-btn"><i class="fas fa-info-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantum Communication</td>
+                                        <td>Experimental</td>
+                                        <td>0.3.5</td>
+                                        <td><span class="status-badge active">Standby</span></td>
+                                        <td>1.8%</td>
+                                        <td>15 days ago</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-cog"></i></button>
+                                            <button class="action-btn"><i class="fas fa-info-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Module Management Controls -->
+                    <div class="metrics-section">
+                        <h3 class="section-title">Module Management</h3>
+                        <div class="feature-grid">
+                            <div class="feature-card" style="height: auto; padding-bottom: 1.5rem;">
+                                <div class="feature-header">
+                                    <h3 class="feature-title" style="margin-bottom: 1rem;">Quick Actions</h3>
+                                </div>
+                                <div class="module-action-buttons" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                                    <button class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Module</button>
+                                    <button class="btn btn-primary"><i class="fas fa-sync"></i> Update All</button>
+                                    <button class="btn btn-secondary"><i class="fas fa-diagnoses"></i> Run Diagnostics</button>
+                                    <button class="btn btn-secondary"><i class="fas fa-tasks"></i> Resource Monitor</button>
+                                    <button class="btn btn-secondary"><i class="fas fa-file-export"></i> Export Config</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Simulation Tools Page -->
+                <section id="simulation" class="dashboard-page">
+                    <div class="page-header">
+                        <h2 class="page-title">Simulation Tools</h2>
+                        <p class="page-subtitle">Generate synthetic anomalies and test detection algorithms</p>
+                    </div>
+                    
+                    <!-- Simulation Control Panel -->
+                    <div class="mission-status-card">
+                        <div class="status-info">
+                            <h3>Simulation Environment</h3>
+                            <div class="status-indicator">
+                                <div class="status-badge">
+                                    <span class="status-icon status-normal"></span>
+                                    <span>Ready</span>
+                                </div>
+                                <div class="status-time">Last simulation: 47 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="mission-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">42</span>
+                                <span class="stat-label">Scenarios</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">186</span>
+                                <span class="stat-label">Anomaly Types</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">98.3%</span>
+                                <span class="stat-label">Detection Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Simulation Features -->
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h3 class="feature-title">Anomaly Generator</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Create synthetic anomalies with precise control over type, severity, duration, and affected systems. Test detection algorithms against realistic but controlled fault scenarios.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Create</button>
+                                    <button class="btn btn-secondary">View Library</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <h3 class="feature-title">Digital Twin</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">High-fidelity spacecraft model that accurately reflects the real system behavior. Simulates component interactions, environmental conditions, and system responses to various inputs.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Launch</button>
+                                    <button class="btn btn-secondary">Configure</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <h3 class="feature-title">Test Harness</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Automated framework for running detection algorithms against simulated anomalies. Generates performance metrics and comparison reports to evaluate and improve algorithms.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Run Tests</button>
+                                    <button class="btn btn-secondary">View Results</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <h3 class="feature-title">Mission Simulator</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Simulate complete mission profiles with realistic timelines, environmental conditions, and spacecraft operations. Test systems under various mission phases and scenarios.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Start Mission</button>
+                                    <button class="btn btn-secondary">Scenarios</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Simulation Control Panel -->
+                    <div class="metrics-section">
+                        <h3 class="section-title">Simulation Control</h3>
+                        <div class="anomalies-table-container" style="padding: 1.5rem;">
+                            <div class="simulation-controls" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                                <!-- Control Panel A -->
+                                <div class="control-panel">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">Anomaly Configuration</h4>
+                                    <div class="control-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Anomaly Type</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="radiation">Radiation Spike</option>
+                                                <option value="thermal">Thermal Anomaly</option>
+                                                <option value="power">Power Fluctuation</option>
+                                                <option value="comms">Communications Dropout</option>
+                                                <option value="attitude">Attitude Control</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Severity</label>
+                                            <input type="range" min="1" max="10" value="5" class="form-range" style="width: 100%; background: rgba(30, 30, 40, 0.6);">
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Duration (minutes)</label>
+                                            <input type="number" value="10" min="1" max="120" class="form-control" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Control Panel B -->
+                                <div class="control-panel">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">Environment Settings</h4>
+                                    <div class="control-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Orbital Position</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="leo">Low Earth Orbit</option>
+                                                <option value="geo">Geostationary</option>
+                                                <option value="lunar">Lunar Transfer</option>
+                                                <option value="mars">Mars Transfer</option>
+                                                <option value="deep">Deep Space</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Solar Activity</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="low">Low</option>
+                                                <option value="moderate">Moderate</option>
+                                                <option value="high">High</option>
+                                                <option value="flare">Solar Flare</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Background Noise</label>
+                                            <input type="range" min="1" max="10" value="3" class="form-range" style="width: 100%; background: rgba(30, 30, 40, 0.6);">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Control Panel C -->
+                                <div class="control-panel">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">Detection Settings</h4>
+                                    <div class="control-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Detection Models</label>
+                                            <div class="checkbox-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" checked id="lstm" style="accent-color: var(--primary);">
+                                                    <label for="lstm" style="color: var(--space-silver);">LSTM Autoencoder</label>
+                                                </div>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" checked id="transformer" style="accent-color: var(--primary);">
+                                                    <label for="transformer" style="color: var(--space-silver);">Transformer</label>
+                                                </div>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" checked id="isolation" style="accent-color: var(--primary);">
+                                                    <label for="isolation" style="color: var(--space-silver);">Isolation Forest</label>
+                                                </div>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" checked id="ensemble" style="accent-color: var(--primary);">
+                                                    <label for="ensemble" style="color: var(--space-silver);">Ensemble Method</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Sensitivity</label>
+                                            <input type="range" min="1" max="10" value="7" class="form-range" style="width: 100%; background: rgba(30, 30, 40, 0.6);">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="simulation-actions" style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1rem;">
+                                <button class="btn btn-primary btn-lg"><i class="fas fa-play"></i> Run Simulation</button>
+                                <button class="btn btn-secondary btn-lg"><i class="fas fa-save"></i> Save Configuration</button>
+                                <button class="btn btn-secondary btn-lg"><i class="fas fa-sync"></i> Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Previous Simulation Results -->
+                    <div class="recent-anomalies-section">
+                        <div class="section-header">
+                            <h3 class="section-title">Recent Simulation Results</h3>
+                            <button class="view-all-btn">View All</button>
+                        </div>
+                        <div class="anomalies-table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Scenario</th>
+                                        <th>Anomalies</th>
+                                        <th>Detection Rate</th>
+                                        <th>False Positives</th>
+                                        <th>Models Used</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2023-06-12 15:23</td>
+                                        <td>Mars Transit</td>
+                                        <td>17</td>
+                                        <td>99.2%</td>
+                                        <td>1</td>
+                                        <td>Ensemble</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-redo"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-06-12 11:45</td>
+                                        <td>Solar Flare</td>
+                                        <td>28</td>
+                                        <td>97.3%</td>
+                                        <td>3</td>
+                                        <td>Transformer</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-redo"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-06-11 16:37</td>
+                                        <td>Power Failure</td>
+                                        <td>5</td>
+                                        <td>100%</td>
+                                        <td>0</td>
+                                        <td>LSTM</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-redo"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-06-10 09:12</td>
+                                        <td>Multi-System</td>
+                                        <td>42</td>
+                                        <td>94.8%</td>
+                                        <td>5</td>
+                                        <td>All</td>
+                                        <td>
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-redo"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Page -->
+                <section id="settings" class="dashboard-page">
+                    <div class="page-header">
+                        <h2 class="page-title">System Settings</h2>
+                        <p class="page-subtitle">Configure system preferences and notifications</p>
+                    </div>
+                    
+                    <!-- Settings Categories -->
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-user-cog"></i>
+                                </div>
+                                <h3 class="feature-title">User Profile</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Manage your account settings, update personal information, change password, and configure two-factor authentication.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Edit Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <h3 class="feature-title">Notifications</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Configure alert settings, notification channels, and thresholds. Set up email, SMS, or push notifications for critical events.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Configure</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <h3 class="feature-title">Interface</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Customize the dashboard appearance, layout, and default views. Adjust theme settings, animations, and performance options.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Customize</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <h3 class="feature-title">Security</h3>
+                            </div>
+                            <div class="feature-content">
+                                <p class="feature-description">Manage access control, view security logs, and configure system encryption settings. Set up API keys and authentication rules.</p>
+                                <div class="feature-actions">
+                                    <button class="btn btn-primary">Security Settings</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- User Preferences Form -->
+                    <div class="metrics-section">
+                        <h3 class="section-title">User Preferences</h3>
+                        <div class="anomalies-table-container" style="padding: 1.5rem;">
+                            <form class="preferences-form">
+                                <!-- Interface Settings -->
+                                <div class="settings-section" style="margin-bottom: 2rem;">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">Interface Settings</h4>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Theme</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="dark">Space Dark (Default)</option>
+                                                <option value="blue">Deep Blue</option>
+                                                <option value="purple">Cosmic Purple</option>
+                                                <option value="light">Light Mode</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Animation Level</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="high">High (All animations)</option>
+                                                <option value="medium">Medium (Reduced animations)</option>
+                                                <option value="low">Low (Essential only)</option>
+                                                <option value="none">None (Disable all)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Dashboard Layout</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="standard">Standard</option>
+                                                <option value="compact">Compact</option>
+                                                <option value="expanded">Expanded</option>
+                                                <option value="custom">Custom</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Notification Settings -->
+                                <div class="settings-section" style="margin-bottom: 2rem;">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">Notification Settings</h4>
+                                    
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Email Notifications</label>
+                                            <div class="checkbox-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" checked id="email_critical" style="accent-color: var(--primary);">
+                                                    <label for="email_critical" style="color: var(--space-silver);">Critical Alerts</label>
+                                                </div>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" checked id="email_warning" style="accent-color: var(--primary);">
+                                                    <label for="email_warning" style="color: var(--space-silver);">Warning Notifications</label>
+                                                </div>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" id="email_reports" style="accent-color: var(--primary);">
+                                                    <label for="email_reports" style="color: var(--space-silver);">Daily Reports</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Mobile Notifications</label>
+                                            <div class="checkbox-group" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" checked id="mobile_critical" style="accent-color: var(--primary);">
+                                                    <label for="mobile_critical" style="color: var(--space-silver);">Critical Alerts</label>
+                                                </div>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" id="mobile_warning" style="accent-color: var(--primary);">
+                                                    <label for="mobile_warning" style="color: var(--space-silver);">Warning Notifications</label>
+                                                </div>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <input type="checkbox" id="mobile_reports" style="accent-color: var(--primary);">
+                                                    <label for="mobile_reports" style="color: var(--space-silver);">Status Updates</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Alert Thresholds</label>
+                                            <div style="margin-bottom: 0.5rem;">
+                                                <label style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem; color: var(--space-silver);">Critical Alert Threshold</label>
+                                                <input type="range" min="1" max="10" value="8" class="form-range" style="width: 100%; background: rgba(30, 30, 40, 0.6);">
+                                            </div>
+                                            <div>
+                                                <label style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem; color: var(--space-silver);">Warning Alert Threshold</label>
+                                                <input type="range" min="1" max="10" value="5" class="form-range" style="width: 100%; background: rgba(30, 30, 40, 0.6);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Data Settings -->
+                                <div class="settings-section" style="margin-bottom: 2rem;">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">Data Settings</h4>
+                                    
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Data Refresh Rate</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="5">Every 5 seconds</option>
+                                                <option value="15">Every 15 seconds</option>
+                                                <option value="30" selected>Every 30 seconds</option>
+                                                <option value="60">Every minute</option>
+                                                <option value="300">Every 5 minutes</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Data Retention</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="7">7 days</option>
+                                                <option value="30">30 days</option>
+                                                <option value="90" selected>90 days</option>
+                                                <option value="180">180 days</option>
+                                                <option value="365">1 year</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label style="display: block; margin-bottom: 0.5rem; color: var(--space-silver);">Export Format</label>
+                                            <select class="form-select" style="width: 100%; padding: 0.5rem; background: rgba(30, 30, 40, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--space-white); border-radius: 4px;">
+                                                <option value="csv">CSV</option>
+                                                <option value="json" selected>JSON</option>
+                                                <option value="xml">XML</option>
+                                                <option value="excel">Excel</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Action Buttons -->
+                                <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                                    <button type="button" class="btn btn-secondary">Reset to Defaults</button>
+                                    <button type="submit" class="btn btn-primary">Save Settings</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- System Information -->
+                    <div class="recent-anomalies-section">
+                        <div class="section-header">
+                            <h3 class="section-title">System Information</h3>
+                            <button class="view-all-btn">Generate Report</button>
+                        </div>
+                        <div class="anomalies-table-container">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 1rem;">
+                                <div class="info-group">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">Software Information</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Version</span>
+                                            <span>2.4.1</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Build Number</span>
+                                            <span>2023.06.15.1</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Last Updated</span>
+                                            <span>2 days ago</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Database Version</span>
+                                            <span>4.2.7</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="info-group">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">System Status</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">System Uptime</span>
+                                            <span>24 days, 7 hours</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">CPU Usage</span>
+                                            <span>23%</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Memory Usage</span>
+                                            <span>3.2 GB / 8 GB</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Disk Usage</span>
+                                            <span>128 GB / 500 GB</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="info-group">
+                                    <h4 style="margin-bottom: 1rem; color: var(--space-white);">License Information</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">License Type</span>
+                                            <span>Enterprise</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Valid Until</span>
+                                            <span>January 15, 2024</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Licensed Users</span>
+                                            <span>25 / 50</span>
+                                        </li>
+                                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                            <span style="color: var(--space-silver);">Support Level</span>
+                                            <span>Premium</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+
+<script src="../assets/js/dashboard.js"></script>
+</body>
+</html>
