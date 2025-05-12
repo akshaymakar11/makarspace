@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MakarSpace - Spacecraft Anomaly Detection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <title>MakarSpace - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/styles/main.css">
     <style>
-        /* Fallback styles in case external CSS fails to load */
+        /* Enhanced futuristic styles */
         :root {
           --primary: #0b3d91;  /* NASA blue */
           --primary-light: #1e5cb3;
           --primary-dark: #051f49;
           --accent: #fc3d21;   /* NASA red */
           --accent-light: #ff6347;
+          --accent-glow: rgba(252, 61, 33, 0.6);
           --space-black: #121212;
           --deep-space: #000000;
+          --deep-space-gradient: linear-gradient(135deg, #0a0a1a 0%, #0f1736 50%, #030a23 100%);
           --cosmic-purple: #2e1a47;
           --nebula-blue: #1a2a47;
           --stellar-teal: #1a4747;
@@ -24,16 +26,96 @@
           --space-light-gray: #4a4a4a;
           --space-silver: #e0e0e0;
           --space-white: #f8f8f8;
+          --neon-blue: #4d9fff;
+          --neon-blue-glow: rgba(77, 159, 255, 0.6);
+          --card-bg: rgba(16, 22, 48, 0.85);
         }
-        body {
-            background-color: var(--deep-space);
-            color: var(--space-white);
-            font-family: 'Exo 2', sans-serif;
+        
+        body, html {
+            height: 100%;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
+            font-family: 'Exo 2', sans-serif;
+            background: var(--deep-space-gradient);
+            color: var(--space-white);
         }
+        
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .space-atmosphere {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(30, 92, 179, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .floating-objects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .satellite {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(90deg, var(--space-gray) 0%, var(--space-light-gray) 100%);
+            border-radius: 4px;
+            top: 15%;
+            right: 10%;
+            transform: rotate(30deg);
+            animation: orbit 120s linear infinite;
+            box-shadow: 0 0 10px rgba(77, 159, 255, 0.3);
+        }
+        
+        .satellite:before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 12px;
+            background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 100%);
+            left: -35px;
+            top: 9px;
+            border-radius: 2px;
+        }
+        
+        .satellite:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 4px;
+            background: var(--accent);
+            right: -15px;
+            top: 13px;
+            border-radius: 2px;
+            box-shadow: 0 0 5px var(--accent-glow);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+            opacity: 0.7;
+        }
+        
         .auth-container {
             display: flex;
             justify-content: center;
@@ -42,254 +124,839 @@
             position: relative;
             z-index: 10;
         }
+        
         .auth-card {
-            background: rgba(18, 18, 35, 0.8);
-            backdrop-filter: blur(10px);
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(77, 159, 255, 0.15);
             padding: 2rem;
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px var(--neon-blue-glow);
+            overflow: hidden;
+            position: relative;
+            max-height: 90vh;
+        }
+        
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-light), var(--accent), var(--primary-light));
+            z-index: 1;
+            animation: glowBorder 3s linear infinite;
+        }
+        
+        .auth-logo svg {
+            filter: drop-shadow(0 0 8px var(--neon-blue-glow));
+            animation: rotateSlow 40s linear infinite;
+        }
+        
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; box-shadow: 0 0 5px var(--accent-glow); }
+            50% { opacity: 1; box-shadow: 0 0 15px var(--accent-glow); }
+            100% { opacity: 0.7; box-shadow: 0 0 5px var(--accent-glow); }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+        
+        @keyframes glowBorder {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .topbar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            z-index: 15;
+        }
+        
+        .notification-btn, .help-btn {
+            background: rgba(30, 92, 179, 0.2);
+            border: 1px solid rgba(77, 159, 255, 0.3);
+            color: var(--space-white);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(77, 159, 255, 0.1);
+        }
+        
+        .notification-btn:hover, .help-btn:hover {
+            background: rgba(30, 92, 179, 0.4);
+            box-shadow: 0 0 15px rgba(77, 159, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px var(--accent-glow);
+            animation: pulse 2s infinite;
+        }
+        
+        /* Notification panel */
+        .notification-panel {
+            position: absolute;
+            top: 55px;
+            right: 15px;
+            width: 300px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid rgba(77, 159, 255, 0.3);
+            padding: 1rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .notification-panel.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification-item {
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        
+        .notification-desc {
+            font-size: 0.8rem;
+            color: var(--space-silver);
+            margin: 0;
+        }
+        
+        /* Help panel */
+        .help-panel {
+            position: absolute;
+            top: 55px;
+            right: 15px;
+            width: 300px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid rgba(77, 159, 255, 0.3);
+            padding: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .help-panel.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .help-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .help-item {
+            margin-bottom: 10px;
+        }
+        
+        .help-question {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--neon-blue);
+            margin-bottom: 4px;
+        }
+        
+        .help-answer {
+            font-size: 0.8rem;
+            color: var(--space-silver);
+            margin: 0;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="../assets/js/auth.js"></script>
 </head>
 <body>
     <div class="particles-container" id="particles-js"></div>
-    
+    <div class="space-atmosphere"></div>
+    <div class="floating-objects">
+        <div class="satellite"></div>
+        <div class="star" style="top: 20%; left: 30%; width: 2px; height: 2px;"></div>
+        <div class="star" style="top: 50%; left: 70%; width: 1px; height: 1px;"></div>
+        <div class="star" style="top: 80%; left: 40%; width: 3px; height: 3px;"></div>
+    </div>
     <div class="auth-container">
-        <!-- Floating orbs background effect -->
-        <div class="floating-orb orb-1"></div>
-        <div class="floating-orb orb-2"></div>
-        <div class="floating-orb orb-3"></div>
+        <!-- Topbar with notification and help buttons -->
+        <div class="topbar">
+            <button class="notification-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+            <button class="help-btn" id="helpBtn">
+                <i class="fas fa-question-circle"></i>
+            </button>
+        </div>
         
-        <div class="auth-card fade-in">
+        <!-- Notification panel -->
+        <div class="notification-panel" id="notificationPanel">
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">System Update</div>
+                    <p class="notification-desc">MakarSpace v2.5 has been deployed with new features</p>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Anomaly Detected</div>
+                    <p class="notification-desc">Unusual radiation patterns detected in Sector 7</p>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">Security Alert</div>
+                    <p class="notification-desc">Enable two-factor authentication for enhanced security</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Help panel -->
+        <div class="help-panel" id="helpPanel">
+            <div class="help-title">Quick Help</div>
+            <div class="help-item">
+                <div class="help-question">How do I login?</div>
+                <p class="help-answer">Use the demo credentials (email: demo@makarspace.com, password: makarspace2025) or create a new account.</p>
+            </div>
+            <div class="help-item">
+                <div class="help-question">What is MakarSpace?</div>
+                <p class="help-answer">MakarSpace is an AI-driven anomaly detection system for spacecraft, designed to identify and predict potential issues in space missions.</p>
+            </div>
+            <div class="help-item">
+                <div class="help-question">Forgot password?</div>
+                <p class="help-answer">Click the "Forgot Password?" link on the login form to reset your password.</p>
+            </div>
+        </div>
+        
+        <div class="auth-card">
             <div class="auth-header">
                 <div class="auth-logo">
                     <svg width="80" height="80" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="100" cy="100" r="95" stroke="#1E5CB3" stroke-width="2" />
-                        <circle cx="100" cy="100" r="70" stroke="#1E5CB3" stroke-width="2" />
-                        <circle cx="100" cy="100" r="40" fill="#0B3D91" stroke="#1E5CB3" stroke-width="2" />
-                        <path d="M100 20C55.8172 20 20 55.8172 20 100C20 144.183 55.8172 180 100 180" stroke="#FC3D21" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 8" />
-                        <circle cx="100" cy="20" r="8" fill="#FC3D21" />
-                        <circle cx="170" cy="110" r="5" fill="#FC3D21" />
-                        <circle cx="30" cy="140" r="5" fill="#1E5CB3" />
-                        <circle cx="150" cy="50" r="5" fill="#1E5CB3" />
+                        <circle cx="100" cy="100" r="95" stroke="#1E5CB3" stroke-width="2"></circle>
+                        <circle cx="100" cy="100" r="70" stroke="#1E5CB3" stroke-width="2"></circle>
+                        <circle cx="100" cy="100" r="40" fill="#0B3D91" stroke="#1E5CB3" stroke-width="2"></circle>
+                        <path d="M100 20C55.8172 20 20 55.8172 20 100C20 144.183 55.8172 180 100 180" stroke="#FC3D21" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 8"></path>
+                        <circle cx="100" cy="20" r="8" fill="#FC3D21"></circle>
+                        <circle cx="170" cy="110" r="5" fill="#FC3D21"></circle>
+                        <circle cx="30" cy="140" r="5" fill="#1E5CB3"></circle>
+                        <circle cx="150" cy="50" r="5" fill="#1E5CB3"></circle>
                     </svg>
                 </div>
                 <h1>MakarSpace</h1>
                 <p>AI-Driven Anomaly Detection for Spacecraft</p>
             </div>
 
-            <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="login">Login</button>
-                <button class="auth-tab" data-tab="register">Register</button>
-            </div>
-
-            <div class="auth-forms">
-                <!-- Login Form -->
-                <form action="#" class="auth-form active" id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <div class="input-with-icon">
-                            <input type="email" id="login-email" name="email" value="demo@makarspace.com" required>
-                            <i class="fas fa-envelope"></i>
-                        </div>
+            <!-- Login Form (Only) -->
+            <form action="#" id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <div class="input-with-icon">
+                        <input type="email" id="login-email" name="email" value="demo@makarspace.com" required>
+                        <i class="fas fa-envelope"></i>
                     </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <div class="input-with-icon">
-                            <input type="password" id="login-password" name="password" value="makarspace2025" required>
-                            <i class="fas fa-lock"></i>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-with-icon">
+                        <input type="password" id="login-password" name="password" value="makarspace2025" required>
+                        <i class="fas fa-lock"></i>
                     </div>
-                    <div class="form-actions">
-                        <div class="remember-forgot">
-                            <label class="checkbox-container">
-                                <input type="checkbox" id="remember-me" checked>
-                                <span class="checkmark"></span>
-                                Remember Me
-                            </label>
-                            <a href="#" class="forgot-link">Forgot Password?</a>
-                        </div>
-                        <button type="submit" class="btn btn-primary login-btn">Log In</button>
+                </div>
+                <div class="form-actions">
+                    <div class="remember-forgot">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="remember-me" checked>
+                            <span class="checkmark"></span>
+                            Remember Me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot Password?</a>
                     </div>
-                    <div class="demo-credentials-info" style="text-align: center; margin-top: 1rem; padding: 0.5rem; background: rgba(30, 92, 179, 0.2); border-radius: 4px; font-size: 0.9rem;">
-                        <p style="margin: 0; color: var(--space-silver);"><strong>Demo Credentials (Pre-filled):</strong><br>
-                        Email: demo@makarspace.com<br>
-                        Password: makarspace2025</p>
-                    </div>
-                </form>
-
-                <!-- Register Form -->
-                <form action="#" class="auth-form" id="register-form">
-                    <div class="form-group">
-                        <label for="register-name">Full Name</label>
-                        <div class="input-with-icon">
-                            <input type="text" id="register-name" name="name" placeholder="Enter your full name" required>
-                            <i class="fas fa-user-astronaut"></i>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <div class="input-with-icon">
-                            <input type="email" id="register-email" name="email" placeholder="Enter your email" required>
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Password</label>
-                        <div class="input-with-icon">
-                            <input type="password" id="register-password" name="password" placeholder="Enter your password" required>
-                            <i class="fas fa-lock"></i>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-confirm-password">Confirm Password</label>
-                        <div class="input-with-icon">
-                            <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
-                            <i class="fas fa-lock"></i>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create Account</button>
-                    <div class="note-info" style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">
-                        <p style="margin: 0; color: var(--space-silver);">Note: For demo purposes, registration will redirect to the login page with demo credentials.</p>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn-login">Log In</button>
+                <button type="button" class="btn-create-account" id="createAccountBtn">Create Account</button>
+                <div class="demo-credentials-info">
+                    <p><strong>Demo Credentials (Pre-filled):</strong><br>
+                    Email: demo@makarspace.com<br>
+                    Password: makarspace2025</p>
+                </div>
+            </form>
 
             <div class="auth-footer">
                 <p>&copy; 2025 MakarSpace | Open-Source Spacecraft AI</p>
             </div>
         </div>
     </div>
+    
+    <!-- Register Modal -->
+    <div class="register-modal" id="registerModal">
+        <div class="register-modal-content">
+            <div class="register-modal-header">
+                <h2>Create Account</h2>
+                <button class="close-modal" id="closeRegisterModal">&times;</button>
+            </div>
+            <form action="#" id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="register-name" name="name" placeholder="Enter your full name" required>
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <div class="input-with-icon">
+                        <input type="email" id="register-email" name="email" placeholder="Enter your email" required>
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <div class="input-with-icon">
+                        <input type="password" id="register-password" name="password" placeholder="Enter your password" required>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-register">Create Account</button>
+            </form>
+        </div>
+    </div>
 
+    <style>
+        /* Additional styles for the login page elements */
+        .btn-login, .btn-create-account, .btn-register {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(11, 61, 145, 0.3);
+        }
+        
+        .btn-login:hover {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 6px 20px rgba(11, 61, 145, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-login:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-login::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(30deg);
+            transition: all 0.8s ease;
+            opacity: 0;
+        }
+        
+        .btn-login:hover::after {
+            opacity: 1;
+            transition: all 0.8s ease;
+            left: 100%;
+        }
+        
+        .btn-create-account {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid rgba(77, 159, 255, 0.3);
+            margin-top: 10px;
+        }
+        
+        .btn-create-account:hover {
+            background: rgba(77, 159, 255, 0.1);
+            border-color: rgba(77, 159, 255, 0.5);
+            box-shadow: 0 0 15px rgba(77, 159, 255, 0.2);
+        }
+        
+        .btn-register {
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            color: white;
+            box-shadow: 0 4px 15px rgba(252, 61, 33, 0.3);
+        }
+        
+        .btn-register:hover {
+            background: linear-gradient(135deg, var(--accent), #d42200);
+            box-shadow: 0 6px 20px rgba(252, 61, 33, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            user-select: none;
+            margin-right: 10px;
+        }
+        
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkmark {
+            position: relative;
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            background-color: rgba(30, 92, 179, 0.1);
+            border: 1px solid rgba(77, 159, 255, 0.3);
+            border-radius: 3px;
+            margin-right: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: rgba(30, 92, 179, 0.2);
+        }
+        
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-container .checkmark:after {
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--space-silver);
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            background: rgba(30, 92, 179, 0.1);
+            border: 1px solid rgba(77, 159, 255, 0.2);
+            border-radius: 6px;
+            color: var(--space-white);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: rgba(77, 159, 255, 0.5);
+            background: rgba(30, 92, 179, 0.15);
+            box-shadow: 0 0 10px rgba(77, 159, 255, 0.2);
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-light);
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .forgot-link {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .forgot-link:hover {
+            color: var(--accent-light);
+            text-decoration: underline;
+        }
+        
+        .demo-credentials-info {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(30, 92, 179, 0.15);
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--space-silver);
+            border: 1px solid rgba(77, 159, 255, 0.2);
+        }
+        
+        .demo-credentials-info p {
+            margin: 0;
+        }
+        
+        .register-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .register-modal.show {
+            display: flex;
+        }
+        
+        .register-modal-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(77, 159, 255, 0.15);
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px var(--neon-blue-glow);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .register-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .register-modal-header h2 {
+            margin: 0;
+            color: var(--space-white);
+            font-size: 24px;
+        }
+        
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--space-silver);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+    </style>
+    
     <script>
-        // Initialize Particles.js for space background
+        // Initialize Particles.js for enhanced space background
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 120,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#ffffff", "#4d9fff", "#fc3d21"]
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 2,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#4d9fff",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 0.5,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 0.5
+                        }
+                    },
+                    "push": {
+                        "particles_nb": 3
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        // DOM elements
         document.addEventListener('DOMContentLoaded', function() {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": {
-                        "value": 100,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": ["#ffffff", "#1E5CB3", "#FC3D21"]
-                    },
-                    "shape": {
-                        "type": "circle"
-                    },
-                    "opacity": {
-                        "value": 0.8,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 2,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 2,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#1E5CB3",
-                        "opacity": 0.2,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 0.5,
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "grab"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 140,
-                            "line_linked": {
-                                "opacity": 0.5
-                            }
-                        },
-                        "push": {
-                            "particles_nb": 3
-                        }
-                    }
-                },
-                "retina_detect": true
+            // Notification functionality
+            const notificationBtn = document.getElementById('notificationBtn');
+            const notificationPanel = document.getElementById('notificationPanel');
+            notificationBtn.addEventListener('click', function() {
+                notificationPanel.classList.toggle('show');
+                helpPanel.classList.remove('show'); // Close help panel if open
+            });
+            
+            // Help functionality
+            const helpBtn = document.getElementById('helpBtn');
+            const helpPanel = document.getElementById('helpPanel');
+            helpBtn.addEventListener('click', function() {
+                helpPanel.classList.toggle('show');
+                notificationPanel.classList.remove('show'); // Close notification panel if open
             });
 
-            // Tab switching functionality
-            const tabs = document.querySelectorAll('.auth-tab');
-            const forms = {
-                login: document.getElementById('loginForm'),
-                register: document.getElementById('registerForm')
-            };
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // Deactivate all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    
-                    // Activate clicked tab
-                    this.classList.add('active');
-                    
-                    // Show corresponding form
-                    const tabName = this.getAttribute('data-tab');
-                    
-                    if (tabName === 'login') {
-                        forms.login.style.display = 'block';
-                        forms.register.style.display = 'none';
-                    } else {
-                        forms.login.style.display = 'none';
-                        forms.register.style.display = 'block';
-                    }
-                });
+            // Register modal functionality
+            const createAccountBtn = document.getElementById('createAccountBtn');
+            const registerModal = document.getElementById('registerModal');
+            const closeRegisterModal = document.getElementById('closeRegisterModal');
+            
+            createAccountBtn.addEventListener('click', function() {
+                registerModal.classList.add('show');
             });
-
-            // Form submission
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
+            
+            closeRegisterModal.addEventListener('click', function() {
+                registerModal.classList.remove('show');
+            });
+            
+            // Close panels when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!notificationBtn.contains(event.target) && !notificationPanel.contains(event.target)) {
+                    notificationPanel.classList.remove('show');
+                }
+                
+                if (!helpBtn.contains(event.target) && !helpPanel.contains(event.target)) {
+                    helpPanel.classList.remove('show');
+                }
+                
+                if (event.target === registerModal) {
+                    registerModal.classList.remove('show');
+                }
+            });
+            
+            // Login form submission
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                // In a real app, we would authenticate the user here
-                // For demo purposes, redirect to dashboard
-                window.location.href = 'dashboard.html';
+                // Show loading effect
+                document.querySelector('.btn-login').textContent = 'Logging in...';
+                
+                // Simulate login (redirect to dashboard after delay)
+                setTimeout(function() {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
             });
-
-            document.getElementById('registerForm').addEventListener('submit', function(e) {
+            
+            // Register form submission
+            const registerForm = document.getElementById('register-form');
+            registerForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                // In a real app, we would register the user here
-                // For demo purposes, redirect to dashboard
-                window.location.href = 'dashboard.html';
+                // Show loading effect
+                document.querySelector('.btn-register').textContent = 'Creating Account...';
+                
+                // Simulate registration (close modal and show success message after delay)
+                setTimeout(function() {
+                    registerModal.classList.remove('show');
+                    showNotification('Account created successfully! You can now login.', 'success');
+                    
+                    // Reset form
+                    registerForm.reset();
+                    document.querySelector('.btn-register').textContent = 'Create Account';
+                }, 1500);
             });
         });
     </script>
